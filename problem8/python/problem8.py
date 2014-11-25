@@ -13,3 +13,7 @@ def catString(x):
             break
     return lis
 print max(catString(a))
+#for i in open("1.txt"):
+#    line = str(i)
+#    line = line.replace('\n','')
+#    print max(catString(line))
