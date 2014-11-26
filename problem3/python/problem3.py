@@ -15,11 +15,11 @@ PrimeList = filter(isPrime,range(1,10000))
 def largestPrime(x):
     for i in PrimeList:
         if(x % i == 0):
-            print i
+            if (x in PrimeList):
+                return x
             return largestPrime(x / i)
         else:
             continue
-    return 0
 print largestPrime(600851475143)
 
     
