@@ -34,3 +34,29 @@ class Trangular{
 		return list;
 	}
 }
+
+
+
+public class Demo2 {
+	public static Integer test(Integer x) {
+		int result = 0;
+		for (int i = 1; i <= x; i++) {
+			if (x % i == 0) {
+				result += 1;
+			} else {
+				continue;
+			}
+		}
+		return result;
+	}
+	public static void main(String[] args) {
+		Integer tmp = 0;
+		for(Integer i=1;;i++) {
+			tmp += i;
+			if (test(tmp) > 500) {
+				System.out.println(tmp);
+				break;
+			}
+		}
+	}
+}
