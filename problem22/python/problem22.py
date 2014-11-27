@@ -1,10 +1,10 @@
 def generateDictionary():
     dic = {}
     tmp = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    lis2 = []
+    lis = []
     for i in tmp:
-        lis2.append(i)
-    dic = dict([(i,j) for (i,j) in zip(lis2,range(1,27))])
+        lis.append(i)
+    dic = dict([(i,j) for (i,j) in zip(lis,range(1,27))])
     return dic
 
 def sumNamesScores():
