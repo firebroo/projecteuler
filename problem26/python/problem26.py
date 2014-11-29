@@ -1,5 +1,7 @@
+# -*- coding: cp936 -*-
 from decimal import *
 
+#设置保留小数位数长度
 getcontext().prec = 2000
 def generate():
     lis = []
@@ -30,3 +32,7 @@ def main():
     return reduce(maxLen,lis)
 
 print main()[1]
+
+
+
+
