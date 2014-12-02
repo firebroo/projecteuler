@@ -34,8 +34,9 @@ public class Coin {
 			return 100;
 		case 8:
 			return 200;
+		default:
+			return 0;
 		}
-		return 0;
 	}
 
 	public static void main(String[] args) {
