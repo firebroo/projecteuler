@@ -1,10 +1,10 @@
 public class Coin {
 
-	public static int count_change(int amount) {
+	private static int count_change(int amount) {
 		return cc(amount, 8);
 	}
 
-	public static int cc(int amount, int kinds_of_coins) {
+	private static int cc(int amount, int kinds_of_coins) {
 		if (amount == 0) {
 			return 1;
 		} else if (amount < 0 || kinds_of_coins == 0) {
