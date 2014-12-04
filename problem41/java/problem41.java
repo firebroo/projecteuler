@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Demo4 {
+	private static final byte[] sortedNumber = { 49, 50, 51, 52, 53, 54, 55 };
+	
 	private static boolean isPrime(int x) {
 		int j = (int) (Math.sqrt(x) + 1);
 		for (int i = 2; i < j; i++) {
@@ -19,8 +21,7 @@ public class Demo4 {
 	private static boolean isPandigital(String x) {
 		byte[] result = x.getBytes();
 		Arrays.sort(result);
-		byte[] a = { 49, 50, 51, 52, 53, 54, 55 };
-		return Arrays.equals(result, a);
+		return Arrays.equals(result, sortedNumber);
 	}
 
 	public static void main(String[] args) {
