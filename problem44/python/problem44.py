@@ -19,7 +19,7 @@ def main():
     lis = []
     generate1 = generate()
     number = generate2()
-    for i in range(5000-1):
+    for i in range(4999):
         for j in range(i):
             if (generate1[i] - generate1[j]) in generate1 and (generate1[i] + generate1[j]) in number:
                 lis.append((generate1[i],generate1[j]))
