@@ -28,6 +28,7 @@ def generateOddCompositeNumber():
             if j in lis1:
                 lis1.remove(j)
     return lis1
+    
 def main():
     OddCompositeNumber = generateOddCompositeNumber()
     primes = generatePrime()
