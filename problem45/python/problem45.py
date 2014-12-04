@@ -21,5 +21,5 @@ def generateTriangle():
             lis.append(tmp)
     return lis
 
-print generateTriangle()[1]
+print generateTriangle()[2]
 
