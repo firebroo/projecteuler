@@ -29,15 +29,16 @@ def primeFactors(x):
 def generate4Factors():
     lis = []
     for x in range(1,150000):
-        if len(list(set(primeFactors(x)))) == 4:
-           lis.append(x)
+        factorsLen = len(list(set(primeFactors(x))))
+        lis.append(factorsLen)
     return lis
 
 def main():
-    lis = generate4Factors()
-    for i in range(len(lis) - 3):
-        if lis[i] + 3 == lis[i+1] + 2 == lis[i+2] + 1 == lis[i+3]:
-            return lis[i]
+    a = generate4Factors()
+    n = len(a)
+    for i in range(1,n+1-3):
+        if (a[i]==4 and a[i+1]==4 and a[i+2]==4 and a[i+3]==4):
+           return i
 
 print main()
 
