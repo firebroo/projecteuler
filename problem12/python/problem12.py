@@ -1,15 +1,14 @@
-def test(x):
-    lis = []
-    for i in range(1,x+1):
-        if(x % i == 0):
-            lis.append(i)
-    return lis
-def generate():
-    #lis = []
-    tmp = 0
-    for i in range(1,10000000):
+import math
+
+def main():
+    tmp = 1
+    for i in xrange(2,100000):
         tmp += i
-        if len(test(tmp)) > 50:
+        counter = 0
+        for j in range(1,int(math.sqrt(tmp)) + 1):
+            if tmp % j == 0:
+                counter += 1
+        if counter >= 250:
             return tmp
-print generate()
+print main()
     
