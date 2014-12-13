@@ -39,14 +39,12 @@ def main():
 
 print main()
 
-#验证
 def verif():
+    #验证密码正确性
     li2 = []
-    #需要验证的密码可能列表
-    lis = filterPasswordText()
-    string = main()
-    #生成main()的所有正排列可能组合
-    for c in itertools.combinations(string, 3):
+    lis = filterPasswordText()                                           #需要验证的密码可能列表
+    string = main(）
+    for c in itertools.combinations(string, 3):                          #生成string的所有正排列可能组合
         li2.append(''.join(str(x) for x in c))
     for j in lis:
         if j not in li2:
