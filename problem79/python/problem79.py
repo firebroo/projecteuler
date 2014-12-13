@@ -1,3 +1,4 @@
+# -*- coding: cp936 -*-
 import itertools
 import collections
 
@@ -15,14 +16,14 @@ for j in lis:
             dic[k] = ord
         ord -= 1
         
-li = ([k for j in list(set(lis)) for k in j])
+li = [k for j in lis for k in j]
 dic2 = {}
 for k in dic:
     dic2[k] = li.count(k)
 for (k,v) in dic2.items():
     dic[k] /=  float(v)
 dic = (sorted(dic.iteritems(),key=lambda asd:asd[1],reverse=True))
-print ''.join([x for x,y in dic])
+print ''.join([x for (x,y) in dic])
 
 #验证
 li2 = []
