@@ -2,7 +2,7 @@
  * Created by Administrator on 2014/12/19.
  */
 public class problem40 {
-    private static int stringToInteger(String string) {
+    private static int stringToInt(String string) {
         return new Integer(string).intValue();
     }
 
@@ -16,9 +16,9 @@ public class problem40 {
             }
         }
         String string = sb.toString();
-        int result = stringToInteger(string.substring(0, 1)) * stringToInteger(string.substring(9, 10)) * stringToInteger(string.substring(99, 100))
-                * stringToInteger(string.substring(999, 1000)) * stringToInteger(string.substring(9999, 10000)) * stringToInteger(string.substring(99999, 100000))
-                * stringToInteger(string.substring(999999, 1000000));
+        int result = stringToInt(string.substring(0, 1)) * stringToInt(string.substring(9, 10)) * stringToInt(string.substring(99, 100))
+                * stringToInt(string.substring(999, 1000)) * stringToInt(string.substring(9999, 10000)) * stringToInt(string.substring(99999, 100000))
+                * stringToInt(string.substring(999999, 1000000));
         System.out.println(result);
     }
 }
