@@ -29,6 +29,8 @@ function main()
             return $i;
         }
     }
+    //如果没有找到，则返回空值.
+    return null;
 }
 
 $start_time = microtime(true);
