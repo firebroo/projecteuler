@@ -9,7 +9,7 @@ function handle_file($file)
 {
     $a = file($file);
     $result = "";
-    foreach ($a as $line => $content) {
+    foreach ($a as $content) {
         $result .= trim($content, "\r\n");
     }
     return $result;
