@@ -1,32 +1,23 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Administrator
- * Date: 2015/1/17
- * Time: 22:45
+ * User: beibei
+ * Date: 2015/1/27
+ * Time: 17:06
  */
-
-function smallestMultiple($num)
-{
-    for ($i = 1; $i <= 20; $i++) {
-        if ($num % $i == 0) {
-            if ($i == 20) {
-                return 1;
-            } else {
-                continue;
-            }
-        } else {
-            break;
-        }
-    }
-    return 0;
-}
-
 function main()
 {
     for ($i = 1; $i < 1000000000; $i++) {
-        if (smallestMultiple($i)) {
-            return $i;
+        for ($j = 1; $j <= 20; $j++) {
+            if ($i % $j == 0) {
+                if ($j == 20) {
+                    return $i;
+                } else {
+                    continue;
+                }
+            } else {
+                break;
+            }
         }
     }
     //如果没有找到，则返回空值.
