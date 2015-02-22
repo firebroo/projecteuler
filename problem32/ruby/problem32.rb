@@ -13,17 +13,17 @@ def isPandigital(x,y,z)
 	return false
 end
 
-def main
+def main()
 	lis = []
-	(1..5000).each do |i|
-		(1..5000).each do |j|
+	(1..2000).each do |i|
+		(1..1000).each do |j|
 			product = i * j
 			if isPandigital(i, j, product)
 				lis.push(product)
 			end
 		end
 	end
-	lis.uniq
+	return lis.uniq
 end
 
 puts main.inject {|i, sum| sum += i}
