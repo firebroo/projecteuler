@@ -1,9 +1,7 @@
 def generateDict()
 	dict = {}
-	i = 1
-	('A'..'Z').each do |key|
-		dict[key] = i
-		i += 1
+	('A'..'Z').zip(1..26).each do |i,j|
+		dict[i] = j
 	end
 	return dict
 end
