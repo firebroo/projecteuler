@@ -4,6 +4,7 @@ def generateDict()
 		dict[i] = j
 	end
 	return dict
+	#dict = Hash[*('A'..'Z').zip(1..26).flatten]
 end
 # 全局字典
 $dict = generateDict()
