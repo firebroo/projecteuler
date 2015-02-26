@@ -17,6 +17,27 @@ def stringToList(str)
   list
 end
 
+def replaceNumberToChar(number)
+  case number
+    when 10
+    then
+      number = 'T'
+    when 11
+    then
+      number = 'J'
+    when 12
+    then
+      number = 'Q'
+    when 13
+    then
+      number = 'K'
+    when 14
+    then
+      number = 'A'
+  end
+  number.to_s
+end
+
 def replaceCharToNumber(char)
   case char
     when 'T'
@@ -35,7 +56,7 @@ def replaceCharToNumber(char)
     then
       char = 14
   end
-  char
+  char.to_i
 end
 
 def getCardValue(str)
@@ -91,14 +112,14 @@ end
 def getRank(str)
   rank = 1
   if sameSuit(str) && consecutiveValue(str)
-    rank = 9             #Straight Flush
-    if str[0] == 'T'     #Royal Flush
+    rank = 9 #Straight Flush
+    if str[0] == 'T' #Royal Flush
       rank = 10
     end
     return rank
   end
   count = countCardValue(str)
-  if count.values.include? 4   #Four of a Kind:
+  if count.values.include? 4 #Four of a Kind:
     rank = 8
     return rank
   end
@@ -106,7 +127,7 @@ def getRank(str)
     rank = 7
     return rank
   end
-  if sameSuit(str)  #Flush
+  if sameSuit(str) #Flush
     rank = 6
     return rank
   end
@@ -118,20 +139,49 @@ def getRank(str)
     rank = 4
     return rank
   end
-  if count.values.include? 2 and count.values.length == 3  #Two Pairs
+  if count.values.include? 2 and count.values.length == 3 #Two Pairs
     rank = 3
     return rank
   end
-  if count.values.include? 2    #One Pair
+  if count.values.include? 2 #One Pair
     rank = 2
     return rank
   end
-  return rank                   #High Card
+  return rank #High Card
 end
 
 #Spade is the max，second is the Heart, third is the Diamond, min is the Club
 def colorCompare(str1, str2)
   str1 > str2
+end
+
+def handleTwoPairs(str1)
+  min = 0
+  str1.each_char do |i|
+    if str1.count(i) == 1
+      min = i
+    end
+  end
+  str1.gsub!(min, '')
+  list = []
+  str1.each_char do |j|
+    list.push(replaceCharToNumber(j))
+  end
+  list.uniq!
+  max = list.max
+  second = list.min
+  return [max, second, replaceCharToNumber(min)]
+end
+
+def findNextChar(str1, char)
+  index = 0
+  getCardValue(str1).each_char do |i|
+    if i == char 
+      break
+    end
+    index += 2
+  end
+  index + 1
 end
 
 def handleFile
@@ -175,8 +225,32 @@ def handleFile
         end
       end
       if player1Rank == 3
+        arr1 = handleTwoPairs(getCardValue(player1))
+        arr2 = handleTwoPairs(getCardValue(player2))
         #4个对子都不同,取决最大的对子
-
+        if arr1[0] > arr2[0]
+          count += 1
+        end
+        #大一点的对子相同时
+        if arr1[0] == arr2[0]
+          if arr1[1] > arr2[1]
+            count += 1
+          end
+          #两个对子都相同时
+          if arr1[1] == arr2[1]
+            if arr1[3] > arr1[3]
+              count += 1
+            end
+            #第三张牌也相同时，比较大对子的花色
+            if arr1[3] == arr2[3]
+              suit1 = player1[findNextChar(player1,arr1[0])]
+              suit2 = player2[findNextChar(player2,arr2[0])]
+              if suit1 > suit2
+                count += 1
+              end
+            end
+          end
+        end
       end
       #一副扑克牌每张牌最多4张
       if player1Rank == 4
