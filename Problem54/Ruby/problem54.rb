@@ -59,11 +59,11 @@ def countCardValue(str)
   dict
 end
 
-def getMaxNumber(str)
+def getMaxNumber(str, num)
   number = 0
   dict = countCardValue(str)
   dict.each do |i, j|
-    if j == 2
+    if j == num
       number = i
     end
   end
@@ -129,6 +129,11 @@ def getRank(str)
   return rank                   #High Card
 end
 
+#Spade is the max，second is the Heart, third is the Diamond, min is the Club
+def colorCompare(str1, str2)
+  str1 > str2
+end
+
 def handleFile
   count = 0
   open('./p054_poker.txt').each do |i|
@@ -142,7 +147,7 @@ def handleFile
       count += 1
     end
     if player1Rank == player2Rank
-      if player1Rank == 1
+      if player1Rank == 1 || player1Rank == 9 || player1Rank == 5
         str1 = player1[0] + player1[2] + player1[4] + player1[6] + player1[8]
         str2 = player2[0] + player2[2] + player2[4] + player2[6] + player2[8]
         maxNumber1 = replaceAndSortStr(str1)
@@ -153,8 +158,8 @@ def handleFile
         end
       end
       if player1Rank == 2
-        maxNumber1 = getMaxNumber(player1)
-        maxNumber2 = getMaxNumber(player2)
+        maxNumber1 = getMaxNumber(player1, 2)
+        maxNumber2 = getMaxNumber(player2, 2)
         #print maxNumber1,"\t",player1,"\t",maxNumber2, "\t",player2,"\n"
         if maxNumber1 > maxNumber2
           count += 1
@@ -169,9 +174,45 @@ def handleFile
           end
         end
       end
-
       if player1Rank == 3
+        #4个对子都不同,取决最大的对子
 
+      end
+      #一副扑克牌每张牌最多4张
+      if player1Rank == 4
+        maxNumber1 = getMaxNumber(player1, 3)
+        maxNumber2 = getMaxNumber(player2, 3)
+        if maxNumber1 > maxNumber2
+          count += 1
+        end
+      end
+      if player1Rank == 6
+        suit1 = getCardSuit(player1)
+        suit2 = getCardSuit(player1)
+        if suit1 > suit2
+          count += 1
+        end
+      end
+      if player1Rank == 7
+        maxNumber1 = getMaxNumber(player1, 3)
+        maxNumber2 = getMaxNumber(player2, 3)
+        if maxNumber1 > maxNumber2
+          count += 1
+        end
+        if maxNumber1 == maxNumber2
+          nextMaxNumber1 = getMaxNumber(player1, 2)
+          nextMaxNumber2 = getMaxNumber(player1, 2)
+          if nextMaxNumber1 > nextMaxNumber2
+            count += 1
+          end
+        end
+      end
+      if player1Rank == 8
+        maxNumber1 = getMaxNumber(player1, 4)
+        maxNumber2 = getMaxNumber(player2, 4)
+        if maxNumber1 > maxNumber2
+          count += 1
+        end
       end
     end
   end
