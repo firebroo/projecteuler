@@ -1,29 +1,54 @@
 def replaceAndSortStr(str)
-  list = []
+  maxNumber = 0
   str.each_char do |i|
-    if i == 'T'
-      i = 10
+    i = replaceCharToNumber(i)
+    if i.to_i > maxNumber
+      maxNumber = i.to_i
     end
-    if i == 'J'
-      i = 11
-    end
-    if i == 'Q'
-      i = 12
-    end
-    if i == 'K'
-      i = 13
-    end
-    if i == 'A'
-      i = 14
-    end
-    list.push(i.to_i)
   end
-  list.max
+  maxNumber
+end
+
+def stringToList(str)
+  list = []
+  str.each_char do |char|
+    list.push(char)
+  end
+  list
+end
+
+def replaceCharToNumber(char)
+  case char
+    when 'T'
+    then
+      char = 10
+    when 'J'
+    then
+      char = 11
+    when 'Q'
+    then
+      char = 12
+    when 'K'
+    then
+      char = 13
+    when 'A'
+    then
+      char = 14
+  end
+  char
+end
+
+def getCardValue(str)
+  str[0] + str[2] + str[4] + str[6] + str[8]
+end
+
+def getCardSuit(str)
+  str[1] + str[3] + str[5] + str[7] + str[9]
 end
 
 def countCardValue(str)
   dict = {}
-  str = str[0] + str[2] + str[4] + str[6] + str[8]
+  str = getCardValue(str)
   str.each_char do |i|
     if dict[i]
       dict[i] += 1
@@ -37,71 +62,72 @@ end
 def getMaxNumber(str)
   number = 0
   dict = countCardValue(str)
-  dict.each do |i,j|
+  dict.each do |i, j|
     if j == 2
       number = i
     end
   end
-  if number == 'T'
-    number = 10
-  end
-  if number == 'J'
-    number = 11
-  end
-  if number == 'Q'
-    number = 12
-  end
-  if number == 'K'
-    number = 13
-  end
-  if number == 'A'
-    number = 14
-  end
-  number.to_i
+  replaceCharToNumber(number).to_i
+end
+
+def splitString(str)
+  len = str.length
+  rightStr = str[0, len/2]
+  leftStr = str[len/2, len]
+  return [rightStr, leftStr]
+end
+
+def sameSuit(str)
+  cardSuit = getCardSuit(str)
+  cardSuit.count(cardSuit[0]) == 5
+end
+
+def consecutiveValue(str)
+  cardValue = getCardValue(str)
+  list = stringToList(cardValue)
+  /#{list.sort.join}/ =~ '23456789AJKQT'
 end
 
 def getRank(str)
   rank = 1
   if sameSuit(str) && consecutiveValue(str)
-    rank = 9
-    if str[0] == 'T'
+    rank = 9             #Straight Flush
+    if str[0] == 'T'     #Royal Flush
       rank = 10
     end
     return rank
   end
   count = countCardValue(str)
-  if count.values.include? 4
+  if count.values.include? 4   #Four of a Kind:
     rank = 8
     return rank
   end
-  if (count.values.include? 3) && (count.values.include? 2)
+  if (count.values.include? 3) && (count.values.include? 2) #Full House
     rank = 7
     return rank
   end
-  if sameSuit(str)
-    p str
+  if sameSuit(str)  #Flush
     rank = 6
     return rank
   end
-  if consecutiveValue(str)
+  if consecutiveValue(str) #Straight
     rank = 5
     return rank
   end
-  if count.values.include? 3
+  if count.values.include? 3 #Three of a Kind
     rank = 4
     return rank
   end
-  if count.values.include? 2 and count.values.length == 3
+  if count.values.include? 2 and count.values.length == 3  #Two Pairs
     rank = 3
     return rank
   end
-  if count.values.include? 2
+  if count.values.include? 2    #One Pair
     rank = 2
     return rank
   end
-  return rank
+  return rank                   #High Card
 end
-
 
 def handleFile
   count = 0
@@ -116,9 +142,6 @@ def handleFile
       count += 1
     end
     if player1Rank == player2Rank
-      if player1Rank > 3
-        p 'hello'
-      end
       if player1Rank == 1
         str1 = player1[0] + player1[2] + player1[4] + player1[6] + player1[8]
         str2 = player2[0] + player2[2] + player2[4] + player2[6] + player2[8]
@@ -146,39 +169,13 @@ def handleFile
           end
         end
       end
+
+      if player1Rank == 3
+
+      end
     end
   end
   count
-end
-
-
-def splitString(str)
-  len = str.length
-  rightStr = str[0, len/2]
-  leftStr = str[len/2, len]
-  return [rightStr, leftStr]
-end
-
-def sameSuit(str)
-  if str[1] == str[3] && str[1]== str[5] &&str[1] == str[7] && str[1]== str[9]
-    return true
-  end
-  return false
-end
-
-def consecutiveValue(str)
-  list = []
-  cardValue = '23456789AJKQT'
-  strSuite = str[0] + str[2] + str[4] + str[6] + str[8]
-  strSuite.each_char do |i|
-    list.push(i)
-  end
-  list.sort!
-  strSuite = list.join
-  if /#{strSuite}/ =~ cardValue
-    return true
-  end
-  false
 end
 
 #p consecutiveVlaue '3231415161'
@@ -186,3 +183,4 @@ end
 #p getRank '2151212151'
 #countCarValue('rqerq')
 p handleFile
+
