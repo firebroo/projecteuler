@@ -42,9 +42,10 @@ def main
     end
   end
   result.uniq!
-  result.inject { |i, sum| sum += i }
+  abundantNumberSum = result.inject { |i, sum| sum += i }
+  sum = 0
+  (1..28123).each { |i| sum += i }
+  sum - abundantNumberSum
 end
 
-sum = 0
-(1..28123).each { |i| sum += i }
-puts sum - main
+p main
