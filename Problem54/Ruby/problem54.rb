@@ -1,29 +1,27 @@
 def replaceAndSortStr(str)
   list = []
-  number = 0
   str.each_char do |i|
-    list.push(i)
+    if i == 'T'
+      i = 10
+    end
+    if i == 'J'
+      i = 11
+    end
+    if i == 'Q'
+      i = 12
+    end
+    if i == 'K'
+      i = 13
+    end
+    if i == 'A'
+      i = 14
+    end
+    list.push(i.to_i)
   end
-  list.sort!
-  if list[4] == 'T'
-    number = 10
-  end
-  if list[4] == 'J'
-    number = 11
-  end
-  if list[4] == 'Q'
-    number = 12
-  end
-  if list[4] == 'K'
-    number = 13
-  end
-  if list[4] == 'A'
-    number = 14
-  end
-  number
+  list.max
 end
 
-def countCarValue(str)
+def countCardValue(str)
   dict = {}
   str = str[0] + str[2] + str[4] + str[6] + str[8]
   str.each_char do |i|
@@ -37,8 +35,8 @@ def countCarValue(str)
 end
 
 def getMaxNumber(str)
-  number = '0'
-  dict = countCarValue(str)
+  number = 0
+  dict = countCardValue(str)
   dict.each do |i,j|
     if j == 2
       number = i
@@ -59,7 +57,7 @@ def getMaxNumber(str)
   if number == 'A'
     number = 14
   end
-  number
+  number.to_i
 end
 
 def getRank(str)
@@ -71,16 +69,17 @@ def getRank(str)
     end
     return rank
   end
-  count = countCarValue(str)
+  count = countCardValue(str)
   if count.values.include? 4
     rank = 8
     return rank
   end
-  if count.values.include? 3 and count.values.include? 2
+  if (count.values.include? 3) && (count.values.include? 2)
     rank = 7
     return rank
   end
   if sameSuit(str)
+    p str
     rank = 6
     return rank
   end
@@ -117,21 +116,34 @@ def handleFile
       count += 1
     end
     if player1Rank == player2Rank
+      if player1Rank > 3
+        p 'hello'
+      end
       if player1Rank == 1
         str1 = player1[0] + player1[2] + player1[4] + player1[6] + player1[8]
         str2 = player2[0] + player2[2] + player2[4] + player2[6] + player2[8]
         maxNumber1 = replaceAndSortStr(str1)
         maxNumber2 = replaceAndSortStr(str2)
         #print maxNumber1,"\t",str1,"\t",maxNumber2, "\t",str2,"\n"
-        if maxNumber1.to_i > maxNumber2.to_i
+        if maxNumber1 > maxNumber2
           count += 1
         end
       end
       if player1Rank == 2
         maxNumber1 = getMaxNumber(player1)
         maxNumber2 = getMaxNumber(player2)
-        if maxNumber1.to_i > maxNumber2.to_i
+        #print maxNumber1,"\t",player1,"\t",maxNumber2, "\t",player2,"\n"
+        if maxNumber1 > maxNumber2
           count += 1
+        end
+        if maxNumber1 == maxNumber2
+          str1 = player1[0] + player1[2] + player1[4] + player1[6] + player1[8]
+          str2 = player2[0] + player2[2] + player2[4] + player2[6] + player2[8]
+          a = replaceAndSortStr(str1)
+          b = replaceAndSortStr(str2)
+          if a > b
+            count += 1
+          end
         end
       end
     end
@@ -155,8 +167,14 @@ def sameSuit(str)
 end
 
 def consecutiveValue(str)
-  cardValue = '23456789TJQKA'
+  list = []
+  cardValue = '23456789AJKQT'
   strSuite = str[0] + str[2] + str[4] + str[6] + str[8]
+  strSuite.each_char do |i|
+    list.push(i)
+  end
+  list.sort!
+  strSuite = list.join
   if /#{strSuite}/ =~ cardValue
     return true
   end
