@@ -1,15 +1,21 @@
-def allDivisorsSum(num)
-  sum = 0
-  (1..num/2).each do |i|
-    if num % i == 0
-      sum += i
+def sumOfDivisors(n)
+  prod = 1
+  (2..Math.sqrt(n)+1).each do |k|
+    p = 1
+    while (n % k == 0)
+      p = p * k + 1
+      n /= k
     end
+    prod *= p
   end
-  sum
+  if n > 1
+    prod *= 1 + n
+  end
+  prod
 end
 
 def isAbundantNumber(num)
-  allDivisorsSum(num) > num ? true : false
+  sumOfDivisors(num) > num + num
 end
 
 def allAbundantNumber
@@ -24,12 +30,15 @@ end
 
 def main
   result = []
-  allAbundantNumber.each do |i|
-    allAbundantNumber.each do |j|
-      tmp = i + j
-      if tmp <= 28123
-        result.push(tmp)
+  arr = allAbundantNumber
+  len = allAbundantNumber.length
+  (0...len).each do |i|
+    (i...len).each do |j|
+      tmp = arr[i] + arr[j]
+      if tmp > 28123
+        break
       end
+      result.push(tmp)
     end
   end
   result.uniq!
@@ -39,5 +48,3 @@ end
 sum = 0
 (1..28123).each { |i| sum += i }
 puts sum - main
-
-
