@@ -176,7 +176,7 @@ end
 def findNextChar(str1, char)
   index = 0
   getCardValue(str1).each_char do |i|
-    if i == char 
+    if i == char
       break
     end
     index += 2
@@ -198,8 +198,8 @@ def handleFile
     end
     if player1Rank == player2Rank
       if player1Rank == 1 || player1Rank == 9 || player1Rank == 5
-        str1 = player1[0] + player1[2] + player1[4] + player1[6] + player1[8]
-        str2 = player2[0] + player2[2] + player2[4] + player2[6] + player2[8]
+        str1 = getCardValue(player1)
+        str2 = getCardValue(player2)
         maxNumber1 = replaceAndSortStr(str1)
         maxNumber2 = replaceAndSortStr(str2)
         #print maxNumber1,"\t",str1,"\t",maxNumber2, "\t",str2,"\n"
@@ -215,13 +215,7 @@ def handleFile
           count += 1
         end
         if maxNumber1 == maxNumber2
-          str1 = player1[0] + player1[2] + player1[4] + player1[6] + player1[8]
-          str2 = player2[0] + player2[2] + player2[4] + player2[6] + player2[8]
-          a = replaceAndSortStr(str1)
-          b = replaceAndSortStr(str2)
-          if a > b
-            count += 1
-          end
+          
         end
       end
       if player1Rank == 3
