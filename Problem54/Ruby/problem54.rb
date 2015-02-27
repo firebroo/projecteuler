@@ -61,13 +61,13 @@ def replaceCharToNumber(char)
   char.to_i
 end
 
-#获取扑克牌卡片的值
+#获取卡组的值
 #getCharValue :: String -> String
 def getCardValue(str)
   str[0] + str[2] + str[4] + str[6] + str[8]
 end
 
-#获取扑克牌卡片的花色
+#获取卡组的花色
 #getCharSuit :: String -> String
 def getCardSuit(str)
   str[1] + str[3] + str[5] + str[7] + str[9]
