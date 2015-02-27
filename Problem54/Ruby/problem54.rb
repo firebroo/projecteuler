@@ -155,6 +155,21 @@ def colorCompare(str1, str2)
   str1 > str2
 end
 
+def handleTwoCardSameValue(str)
+  max = 0
+  list = []
+  str.each_char do |i|
+    if str.count(i) == 2
+      max = replaceCharToNumber(i)
+    else
+      list.push(replaceCharToNumber(i))
+    end
+  end
+  return [max] + list.sort.reverse
+end
+
+p handleTwoCardSameValue('1KKJT')
+
 def handleTwoPairs(str1)
   min = 0
   str1.each_char do |i|
@@ -215,7 +230,30 @@ def handleFile
           count += 1
         end
         if maxNumber1 == maxNumber2
-          
+          str1 = getCardValue(player1)
+          str2 = getCardValue(player2)
+          arr1 = handleTwoCardSameValue(str1)
+          arr2 = handleTwoCardSameValue(str2)
+          if arr1[1] > arr2[1]
+            count += 1
+          end
+          if arr1[1] == arr2[1]
+            if arr1[2] > arr2[2]
+              count += 1
+            end
+            if arr1[2] == arr2[2]
+              if arr1[3] > arr2[3]
+                count += 1
+              end
+              if arr1[3] == arr2[3]
+                suit1 = findNextChar(player1,replaceCharToNumber(arr1[0]))
+                suit2 = findNextChar(player2,replaceCharToNumber(arr2[0]))
+                if colorCompare(suit1,suit2)
+                  count += 1
+                end
+              end
+            end
+          end
         end
       end
       if player1Rank == 3
@@ -239,7 +277,7 @@ def handleFile
             if arr1[3] == arr2[3]
               suit1 = player1[findNextChar(player1,arr1[0])]
               suit2 = player2[findNextChar(player2,arr2[0])]
-              if suit1 > suit2
+              if colorCompare(suit1, suit2)
                 count += 1
               end
             end
@@ -256,7 +294,7 @@ def handleFile
       end
       if player1Rank == 6
         suit1 = getCardSuit(player1)
-        suit2 = getCardSuit(player1)
+        suit2 = getCardSuit(player2)
         if suit1 > suit2
           count += 1
         end
@@ -269,7 +307,7 @@ def handleFile
         end
         if maxNumber1 == maxNumber2
           nextMaxNumber1 = getMaxNumber(player1, 2)
-          nextMaxNumber2 = getMaxNumber(player1, 2)
+          nextMaxNumber2 = getMaxNumber(player2, 2)
           if nextMaxNumber1 > nextMaxNumber2
             count += 1
           end
