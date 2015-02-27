@@ -1,14 +1,15 @@
-def replaceAndSortStr(str)
+#getMaxChar :: String -> Int
+def getMaxChar(str)
   maxNumber = 0
   str.each_char do |i|
     i = replaceCharToNumber(i)
-    if i.to_i > maxNumber
-      maxNumber = i.to_i
-    end
+    maxNumber = i.to_i if i.to_i > maxNumber
   end
   maxNumber
 end
 
+#将字符串转化为字符数组
+#stringToList :: String -> [Char]
 def stringToList(str)
   list = []
   str.each_char do |char|
@@ -17,6 +18,8 @@ def stringToList(str)
   list
 end
 
+#将数字转化为等价的字符
+#replaceNumberToChar :: Int -> String
 def replaceNumberToChar(number)
   case number
     when 10
@@ -38,6 +41,8 @@ def replaceNumberToChar(number)
   number.to_s
 end
 
+#将字符转化为等价数字
+#replaceCharToNumber :: String -> Int
 def replaceCharToNumber(char)
   case char
     when 'T'
@@ -59,14 +64,20 @@ def replaceCharToNumber(char)
   char.to_i
 end
 
+#获取扑克牌卡片的值
+#getCharValue :: String -> String
 def getCardValue(str)
   str[0] + str[2] + str[4] + str[6] + str[8]
 end
 
+#获取扑克牌卡片的花色
+#getCharSuit :: String -> String
 def getCardSuit(str)
   str[1] + str[3] + str[5] + str[7] + str[9]
 end
 
+#字符串中字符的频率字典
+#countCardValue :: String -> {String=>Int}
 def countCardValue(str)
   dict = {}
   str = getCardValue(str)
@@ -80,6 +91,8 @@ def countCardValue(str)
   dict
 end
 
+#指定字符出现次数的第一个字符
+#getMaxNumber :: String -> Int -> Int
 def getMaxNumber(str, num)
   number = 0
   dict = countCardValue(str)
@@ -88,9 +101,11 @@ def getMaxNumber(str, num)
       number = i
     end
   end
-  replaceCharToNumber(number).to_i
+  replaceCharToNumber(number)
 end
 
+#字符串平均分割为2份
+#splitString :: String -> [String]
 def splitString(str)
   len = str.length
   rightStr = str[0, len/2]
@@ -98,17 +113,23 @@ def splitString(str)
   return [rightStr, leftStr]
 end
 
+#花色是否全部相同
+#sameSuit :: String -> Boolean
 def sameSuit(str)
   cardSuit = getCardSuit(str)
   cardSuit.count(cardSuit[0]) == 5
 end
 
+#牌组是否连续
+#consecutiveValue :: String -> Boolean
 def consecutiveValue(str)
   cardValue = getCardValue(str)
   list = stringToList(cardValue)
   /#{list.sort.join}/ =~ '23456789AJKQT'
 end
 
+#得到牌组的权重
+#getRank :: String -> Int
 def getRank(str)
   rank = 1
   if sameSuit(str) && consecutiveValue(str)
@@ -151,10 +172,12 @@ def getRank(str)
 end
 
 #Spade is the max，second is the Heart, third is the Diamond, min is the Club
+#colorCompare :: String -> String -> Boolean
 def colorCompare(str1, str2)
   str1 > str2
 end
 
+#handleTwoCardSameValue :: String -> [Int]
 def handleTwoCardSameValue(str)
   max = 0
   list = []
@@ -168,8 +191,7 @@ def handleTwoCardSameValue(str)
   return [max] + list.sort.reverse
 end
 
-p handleTwoCardSameValue('1KKJT')
-
+#handleTwoPairs :: String -> [Int]
 def handleTwoPairs(str1)
   min = 0
   str1.each_char do |i|
@@ -188,6 +210,8 @@ def handleTwoPairs(str1)
   return [max, second, replaceCharToNumber(min)]
 end
 
+#得到牌值的花色
+#findNextChar :: String -> Char -> Int
 def findNextChar(str1, char)
   index = 0
   getCardValue(str1).each_char do |i|
@@ -215,8 +239,8 @@ def handleFile
       if player1Rank == 1 || player1Rank == 9 || player1Rank == 5
         str1 = getCardValue(player1)
         str2 = getCardValue(player2)
-        maxNumber1 = replaceAndSortStr(str1)
-        maxNumber2 = replaceAndSortStr(str2)
+        maxNumber1 = getMaxChar(str1)
+        maxNumber2 = getMaxChar(str2)
         #print maxNumber1,"\t",str1,"\t",maxNumber2, "\t",str2,"\n"
         if maxNumber1 > maxNumber2
           count += 1
@@ -325,9 +349,5 @@ def handleFile
   count
 end
 
-#p consecutiveVlaue '3231415161'
-#p sameSuit 'T2J1Q1K1A1'
-#p getRank '2151212151'
-#countCarValue('rqerq')
 p handleFile
 
