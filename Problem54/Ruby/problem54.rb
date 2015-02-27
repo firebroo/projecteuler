@@ -1,3 +1,6 @@
+=begin
+游戏规则: 一副扑克牌, 双方各5张牌比较大小
+=end
 #getMaxChar :: String -> Int
 def getMaxChar(str)
   maxNumber = 0
@@ -227,9 +230,7 @@ def handleFile
     player2 = str[1]
     player1Rank = getRank(player1)
     player2Rank = getRank(player2)
-    if player1Rank > player2Rank
-      count += 1
-    end
+    count += 1 if player1Rank > player2Rank
     if player1Rank == player2Rank
       if player1Rank == 1 || player1Rank == 9 || player1Rank == 5
         str1 = getCardValue(player1)
@@ -237,39 +238,27 @@ def handleFile
         maxNumber1 = getMaxChar(str1)
         maxNumber2 = getMaxChar(str2)
         #print maxNumber1,"\t",str1,"\t",maxNumber2, "\t",str2,"\n"
-        if maxNumber1 > maxNumber2
-          count += 1
-        end
+        count += 1 if maxNumber1 > maxNumber2
       end
       if player1Rank == 2
         maxNumber1 = getMaxNumber(player1, 2)
         maxNumber2 = getMaxNumber(player2, 2)
         #print maxNumber1,"\t",player1,"\t",maxNumber2, "\t",player2,"\n"
-        if maxNumber1 > maxNumber2
-          count += 1
-        end
+        count += 1 if maxNumber1 > maxNumber2
         if maxNumber1 == maxNumber2
           str1 = getCardValue(player1)
           str2 = getCardValue(player2)
           arr1 = handleTwoCardSameValue(str1)
           arr2 = handleTwoCardSameValue(str2)
-          if arr1[1] > arr2[1]
-            count += 1
-          end
+          count += 1 if arr1[1] > arr2[1]
           if arr1[1] == arr2[1]
-            if arr1[2] > arr2[2]
-              count += 1
-            end
+            count += 1 if arr1[2] > arr2[2]
             if arr1[2] == arr2[2]
-              if arr1[3] > arr2[3]
-                count += 1
-              end
+              count += 1 if arr1[3] > arr2[3]
               if arr1[3] == arr2[3]
-                suit1 = findNextChar(player1,replaceCharToNumber(arr1[0]))
-                suit2 = findNextChar(player2,replaceCharToNumber(arr2[0]))
-                if colorCompare(suit1,suit2)
-                  count += 1
-                end
+                suit1 = findNextChar(player1, replaceCharToNumber(arr1[0]))
+                suit2 = findNextChar(player2, replaceCharToNumber(arr2[0]))
+                count += 1 if colorCompare(suit1, suit2)
               end
             end
           end
@@ -279,38 +268,28 @@ def handleFile
         arr1 = handleTwoPairs(getCardValue(player1))
         arr2 = handleTwoPairs(getCardValue(player2))
         #4个对子都不同,取决最大的对子
-        if arr1[0] > arr2[0]
-          count += 1
-        end
+        count += 1 if arr1[0] > arr2[0]
         #大一点的对子相同时
         if arr1[0] == arr2[0]
-          if arr1[1] > arr2[1]
-            count += 1
-          end
+          count += 1 if arr1[1] > arr2[1]
           #两个对子都相同时
           if arr1[1] == arr2[1]
-            if arr1[3] > arr1[3]
-              count += 1
-            end
+            count += 1 if arr1[3] > arr1[3]
             #第三张牌也相同时，比较大对子的花色
             if arr1[3] == arr2[3]
-              suit1 = player1[findNextChar(player1,arr1[0])]
-              suit2 = player2[findNextChar(player2,arr2[0])]
-              if colorCompare(suit1, suit2)
-                count += 1
-              end
+              suit1 = player1[findNextChar(player1, arr1[0])]
+              suit2 = player2[findNextChar(player2, arr2[0])]
+              count += 1 if colorCompare(suit1, suit2)
             end
           end
         end
       end
-      #一副扑克牌每张牌最多4张
-      if player1Rank == 4
+      if player1Rank == 4 || player1Rank == 7
         maxNumber1 = getMaxNumber(player1, 3)
         maxNumber2 = getMaxNumber(player2, 3)
-        if maxNumber1 > maxNumber2
-          count += 1
-        end
+        count += 1 if maxNumber1 > maxNumber2
       end
+      #在花色相同时没有处理
       if player1Rank == 6
         suit1 = getCardSuit(player1)
         suit2 = getCardSuit(player2)
@@ -318,26 +297,10 @@ def handleFile
           count += 1
         end
       end
-      if player1Rank == 7
-        maxNumber1 = getMaxNumber(player1, 3)
-        maxNumber2 = getMaxNumber(player2, 3)
-        if maxNumber1 > maxNumber2
-          count += 1
-        end
-        if maxNumber1 == maxNumber2
-          nextMaxNumber1 = getMaxNumber(player1, 2)
-          nextMaxNumber2 = getMaxNumber(player2, 2)
-          if nextMaxNumber1 > nextMaxNumber2
-            count += 1
-          end
-        end
-      end
       if player1Rank == 8
         maxNumber1 = getMaxNumber(player1, 4)
         maxNumber2 = getMaxNumber(player2, 4)
-        if maxNumber1 > maxNumber2
-          count += 1
-        end
+        count += 1 if maxNumber1 > maxNumber2
       end
     end
   end
