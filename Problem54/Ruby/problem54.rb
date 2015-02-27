@@ -8,7 +8,6 @@ def getMaxChar(str)
   maxNumber
 end
 
-#将字符串转化为字符数组
 #stringToList :: String -> [Char]
 def stringToList(str)
   list = []
@@ -18,7 +17,6 @@ def stringToList(str)
   list
 end
 
-#将数字转化为等价的字符
 #replaceNumberToChar :: Int -> String
 def replaceNumberToChar(number)
   case number
@@ -41,7 +39,6 @@ def replaceNumberToChar(number)
   number.to_s
 end
 
-#将字符转化为等价数字
 #replaceCharToNumber :: String -> Int
 def replaceCharToNumber(char)
   case char
@@ -76,7 +73,6 @@ def getCardSuit(str)
   str[1] + str[3] + str[5] + str[7] + str[9]
 end
 
-#字符串中字符的频率字典
 #countCardValue :: String -> {String=>Int}
 def countCardValue(str)
   dict = {}
@@ -91,7 +87,6 @@ def countCardValue(str)
   dict
 end
 
-#指定字符出现次数的第一个字符
 #getMaxNumber :: String -> Int -> Int
 def getMaxNumber(str, num)
   number = 0
@@ -104,7 +99,6 @@ def getMaxNumber(str, num)
   replaceCharToNumber(number)
 end
 
-#字符串平均分割为2份
 #splitString :: String -> [String]
 def splitString(str)
   len = str.length
@@ -223,6 +217,7 @@ def findNextChar(str1, char)
   index + 1
 end
 
+#handleFile :: Int
 def handleFile
   count = 0
   open('./p054_poker.txt').each do |i|
@@ -348,7 +343,6 @@ def handleFile
   end
   count
 end
-
 
 p handleFile
 
