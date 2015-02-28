@@ -108,17 +108,18 @@ def genDict(list)
   dict
 end
 
-def main()
-  list1 = triangle
-  list2 = square
-  list3 = pentagonal
-  list4 = hexagonal
-  list5 = heptagonal
-  list6 = octagonal
+list1 = triangle
+list2 = square
+list3 = pentagonal
+list4 = hexagonal
+list5 = heptagonal
+list6 = octagonal
+
+def main(list1, list2, list3, list4, list5, list6)
   newList = []
   list6.each do |i|
     list4.each do |j|
-      if j[0,2] == i[2,4]
+      if j[0, 2] == i[2, 4]
         newList.push(i+j)
       end
     end
@@ -126,7 +127,7 @@ def main()
   nnewList = []
   newList.each do |i|
     list3.each do |j|
-      if j[0,2] ==  i[-2..-1]
+      if j[0, 2] == i[-2..-1]
         nnewList.push(i+j)
       end
     end
@@ -134,7 +135,7 @@ def main()
   nnnewList = []
   nnewList.each do |i|
     list1.each do |j|
-      if j[0,2] == i[-2..-1]
+      if j[0, 2] == i[-2..-1]
         nnnewList.push(i+j)
       end
     end
@@ -142,7 +143,7 @@ def main()
   nnnnewList = []
   nnnewList.each do |i|
     list2.each do |j|
-      if i[-2..-1] == j[0,2]
+      if i[-2..-1] == j[0, 2]
         nnnnewList.push(i+j)
       end
     end
@@ -150,17 +151,17 @@ def main()
   b = []
   nnnnewList.each do |i|
     list5.each do |j|
-      if j[0,2] == i[-2..-1]
+      if j[0, 2] == i[-2..-1]
         b.push(i+j)
       end
     end
   end
   b.each do |i|
-    if i[-2..-1] == i[0,2]
+    if i[-2..-1] == i[0, 2]
       p i
-      p (i[0,4]).to_i + (i[4,4]).to_i + i[8,4].to_i + i[12,4].to_i + i[16,4].to_i + i[20,4].to_i
+      return i[0, 4].to_i + i[4, 4].to_i + i[8, 4].to_i + i[12, 4].to_i + i[16, 4].to_i + i[20, 4].to_i
     end
   end
 end
 
-main
+main(list1, list2, list3, list4, list5, list6)
