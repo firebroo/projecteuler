@@ -7,6 +7,50 @@ def isPrime(num)
   return true
 end
 
+def primes
+  arr = []
+  (2..1000).each do |i|
+    if isPrime(i)
+      arr.push(i)
+    end
+  end
+  arr
+end
+
+$list = []
+$a = primes
+
+def getPrime(num)
+  if isPrime(num)
+    $list.push(num)
+    return
+  end
+  $a.each do |i|
+    if num % i == 0
+      $list.push(i)
+      return getPrime(num / i)
+    end
+  end
+end
+
+def main
+  min = 100
+  (10..10**7).each do |i|
+    $list = []
+    getPrime(i)
+    tmp = i
+    $list.uniq.each do |i|
+      tmp *= (1 - 1.0/i)
+    end
+    if tmp < min
+      min = tmp
+    end
+  end
+  min
+end
+p main
+
+
 def stringToList(str)
   list = []
   str.each_char do |char|
@@ -21,8 +65,8 @@ end
 
 def getPrimeNum(num)
   divisors = []
-  (2..Math.sqrt(num)+1).each do |i|
-    if num % i == 0 && isPrime(i)
+  (2..num/2).each do |i|
+    if num % i == 0
       divisors.push(i)
     end
   end
@@ -40,23 +84,8 @@ def getPrimeNum(num)
   return num - count.uniq.length - 1
 end
 
-def main
-  (87109..100000).each do |i|
-    if not isPrime(i)
-      tmp = getPrimeNum(i)
-      if DigitsIsSame(tmp.to_s, i.to_s)
-        return tmp
-      end
-    end
-  end
-end
 
-p getPrimeNum(87109)
-p main
-
-
-
-
+#p getPrimeNum(87109)
 
 =begin
 min = 100
