@@ -4,7 +4,6 @@ author: firebroo
 email: bianliqiang12@gmail.com
 */
 
-
 #include<stdio.h>
 #include<math.h>
 
