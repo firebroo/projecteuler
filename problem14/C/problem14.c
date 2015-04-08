@@ -5,29 +5,31 @@ email: bianliqiang12@gmail.com
 */
 
 #include<stdio.h>
-#include<math.h>
 
-int problem12(void) {
-	int tmp = 1;
-	for(int i=2;i<10000000;i++) {
-		tmp += i;
-		int count = 0;
-		int tmp2 = ((int)sqrt((double)tmp)) + 1;
-		for(int j=1; j<tmp2;j++) {
-			if (tmp%j==0){
-				count += 1;
-			}
+int getCount(long num) {
+	long length = 1;
+	while (num != 1) {
+		if(num % 2 == 0) {
+			num = num / 2;
+		}else {
+			num = num * 3 + 1;
 		}
-		if (count >= 250) {
-			return tmp;
-		}
+		length += 1;
 	}
-	return tmp;
+	return length;
 }
 
 int main(void) {
-	int result = problem12();
-	printf("%d\n", result);
+	long key = 0;
+	long value = 0;
+	long length = 0;
+	for(long i=1;i<1000000;i++) {
+		length = getCount(i);
+		if(length > value) {
+			key = i;
+			value = length;
+		}
+	}
+	printf("%ld\t%ld\n", key, length);
 	return 0;
 }
-
